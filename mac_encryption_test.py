@@ -21,7 +21,6 @@ def benchmark_integrated(file_path, algo_name, algo_instance, key_size, block_si
     psutil.cpu_percent(interval=None) 
     mem_start = proc.memory_info().rss / (1024 * 1024) 
     
-    # --- PHASE 1: ENCRYPTION & WRITE ---
     start_enc = time.perf_counter()
     padder = padding.PKCS7(block_size * 8).padder()
     padded_data = padder.update(file_data) + padder.finalize()
@@ -38,7 +37,6 @@ def benchmark_integrated(file_path, algo_name, algo_instance, key_size, block_si
     })
     end_enc = time.perf_counter()
     
-    # --- PHASE 2: DECRYPTION & READ ---
     start_dec = time.perf_counter()
     record = db[f'test_{algo_name}'].find_one({"file": file_name}, sort=[('_id', -1)])
     
@@ -50,29 +48,25 @@ def benchmark_integrated(file_path, algo_name, algo_instance, key_size, block_si
     unpadder.update(decrypted_padded) + unpadder.finalize()
     end_dec = time.perf_counter()
 
-    # Capture final resource delta
     cpu_usage = psutil.cpu_percent(interval=None)
     mem_end = proc.memory_info().rss / (1024 * 1024)
     mem_impact = max(0, mem_end - mem_start)
     
     return (end_enc - start_enc), (end_dec - start_dec), cpu_usage, mem_impact
 
-# 2. Execution Logic - Path optimized for macOS
 files = ['only_text.txt', 'alphanumerical.txt', 'numerical.txt', 'audio.mp3']
 
-# macOS uses ~/Desktop which expands to /Users/username/Desktop
 desktop_path = os.path.expanduser("~/Desktop") 
 
 results = []
 
-print("Starting macOS Benchmark...")
+print("Starting test...")
 for f_name in files:
     path = os.path.join(desktop_path, f_name)
     if os.path.exists(path):
         f_size = os.path.getsize(path) / 1024
-        print(f"Executing: {f_name}")
+        print(f"Currently executing: {f_name}")
         
-        # macOS specific: Brief sleep ensures CPU counters reset between intensive bursts
         time.sleep(0.1) 
         
         ae, ad, ac, am = benchmark_integrated(path, "AES", algorithms.AES, 16, 16)
@@ -88,7 +82,6 @@ for f_name in files:
     else:
         print(f"Skipping: {f_name} (Not found on Desktop)")
 
-# 3. Smart Versioning for macOS
 base_filename = "mac_results"
 filename = f"{base_filename}.csv"
 counter = 1
@@ -108,4 +101,4 @@ with open(save_path, 'w', newline='') as f:
     ])
     writer.writerows(results)
 
-print(f"Complete. Saved to Desktop as: {filename}")
+print(f"Done, file saved as {filename}")
