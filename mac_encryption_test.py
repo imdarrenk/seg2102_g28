@@ -1,6 +1,5 @@
 import time, os, csv, psutil
 from pymongo import MongoClient
-
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 from Crypto.Cipher import DES
@@ -139,7 +138,7 @@ for f_name in files:
     else:
         print(f"Skipping {f_name} (not found)")
 
-base_filename = "mac_results"
+base_filename = "results"
 filename = f"{base_filename}.csv"
 counter = 1
 
