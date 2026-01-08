@@ -23,17 +23,13 @@ To ensure the script runs correctly, place the following test files on your Desk
 - numerical.txt
 - audio.mp3 
 
-🚀 Usage
-1. Running the Benchmark
+<h1> Running the benchnark</h1>
 
-Execute the script from your terminal or command prompt:
+- Windows: Open Command Prompt and type ```python win_encryption_test.py```
+- Mac: Open Terminal and type ```python3 mac_encryption_test.py```
 
-1. Windows:
-   - Open Command Prompt and type ```python win_encryption_test.py```
 
-2. macOS
-   - Open Terminal and type ```python3 mac_encryption_test.py```
-
+<br>
 ❗ The script automatically generates a CSV file on your Desktop titled results.csv. 
 
 If not found on Windows, please follow the following procedure:
