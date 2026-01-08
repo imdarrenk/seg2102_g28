@@ -5,6 +5,7 @@ Before running the benchmarks, ensure your system meets the following requiremen
 
 - Python 3.8+
 - MongoDB
+- Homebrew (macOS)
 
 ❗ Windows: Install MongoDB Community Server and ensure the service is running.
 - Required Libraries: Install the dependencies via pip: ```pip install pymongo pycryptodome cryptography psutil```
@@ -23,7 +24,7 @@ To ensure the script runs correctly, place the following test files on your Desk
 - numerical.txt
 - audio.mp3 
 
-<h1> Running the benchnark</h1>
+<h1> Running the tests</h1>
 
 - Windows: Open Command Prompt and type ```python win_encryption_test.py```
 - Mac: Open Terminal and type ```python3 mac_encryption_test.py```
